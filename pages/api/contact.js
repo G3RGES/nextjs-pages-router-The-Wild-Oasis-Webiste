@@ -1,6 +1,12 @@
 import { supabase } from "@/lib/supabase";
 
 export default async function handler(req, res) {
+  if (req.method !== "POST")
+    return res.status(405).json({
+      success: false,
+      message: "Method not allowed. Only POST requests are accepted.",
+    });
+
   const contactData = {
     fullName: "Gerges Nashaat",
     email: "georgios.nashaat@test.com",
@@ -11,12 +17,10 @@ export default async function handler(req, res) {
   const { error } = await supabase.from("contact").insert([contactData]);
 
   if (error)
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to send message. Please try again",
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to send message. Please try again",
+    });
 
   //* SUCCESS MESSAGE
   res
