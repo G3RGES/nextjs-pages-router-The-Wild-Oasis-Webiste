@@ -7,12 +7,7 @@ export default async function handler(req, res) {
       message: "Method not allowed. Only POST requests are accepted.",
     });
 
-  const contactData = {
-    fullName: "Gerges Nashaat",
-    email: "georgios.nashaat@test.com",
-    subject: "test",
-    message: "test",
-  };
+  const contactData = JSON.parse(req.body);
 
   const { error } = await supabase.from("contact").insert([contactData]);
 
