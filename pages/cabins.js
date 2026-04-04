@@ -5,11 +5,12 @@ import Head from "next/head";
 //* STATICALLY GENERATED (SSG)
 export async function getStaticProps() {
   const cabins = await getCabins();
-  return { props: { cabins } };
+  return { props: { cabins }, revalidate: 3600 };
 }
 
 export default function Cabins({ cabins }) {
-  console.log(cabins);
+  //* console.log(cabins);
+
   return (
     <>
       <Head>
